@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto: Dashboard Cripto | Clara Cecília</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script>hljs.highlightAll();</script>
+
+    <style>
+        /* Estilos Básicos para ficar bonito */
+        :root { --primary: #236ad3; --bg: #f8f9fa; --text: #333; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; line-height: 1.6; }
+        
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        
+        /* Cabeçalho do Projeto */
+        header { text-align: center; padding: 60px 20px; background: white; border-bottom: 1px solid #ddd; }
+        h1 { font-size: 2.5rem; margin-bottom: 10px; color: var(--primary); }
+        .tags span { background: #eef2ff; color: var(--primary); padding: 5px 12px; border-radius: 20px; font-size: 0.9rem; margin: 0 5px; font-weight: 600; }
+        
+        /* Área do Power BI */
+        .dashboard-container { margin: 40px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border-radius: 12px; overflow: hidden; }
+        iframe { width: 100%; height: 600px; border: none; }
+
+        /* Seções de Texto e Código */
+        .section { background: white; padding: 30px; margin-bottom: 30px; border-radius: 12px; border: 1px solid #eee; }
+        h2 { border-left: 4px solid var(--primary); padding-left: 15px; margin-top: 0; }
+        
+        /* Estilo do Diagrama de Arquitetura */
+        .architecture-flow { display: flex; align-items: center; justify-content: center; gap: 15px; flex-wrap: wrap; margin: 20px 0; font-weight: bold; }
+        .flow-item { background: #2d3748; color: white; padding: 10px 20px; border-radius: 8px; }
+        .arrow { font-size: 1.5rem; color: #cbd5e0; }
+
+        .btn-github { display: inline-block; background: #24292e; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; margin-top: 20px; }
+        .btn-github:hover { background: #1b1f23; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Dashboard de Mercado Cripto</h1>
+        <div class="tags">
+            <span>Power BI</span>
+            <span>Python ETL</span>
+            <span>MySQL</span>
+            <span>Data Analysis</span>
+        </div>
+        <br>
+        <a href="https://github.com/clara-cecilia/Pipeline-de-Criptoativos" class="btn-github" target="_blank">Ver código no GitHub</a>
+    </header>
+
+    <div class="container">
+        
+        <div class="dashboard-container">
+            <iframe title="cripto_bi" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=819260f9-56b8-4ddf-bccc-39cee7531586&autoAuth=true&ctid=85cccaae-eea0-478c-8062-60536e374ef5&actionBarEnabled=true" frameborder="0" allowFullScreen="true"></iframe>        
+        </div>
+
+        <div class="section">
+            <h2>Visão Geral</h2>
+            <p>
+                Este projeto consiste em um dashboard interativo para monitoramento do mercado de criptomoedas. 
+                O objetivo principal é fornecer uma visão clara e atualizada de indicadores-chave, como preço, 
+                variação de 24h e histórico de desempenho de ativos como Bitcoin, Ethereum e Solana.
+            </p>
+            
+            <h3>Arquitetura da Solução</h3>
+            <p>A solução foi desenvolvida com uma arquitetura robusta dividida em três camadas:</p>
+            
+            <div class="architecture-flow">
+                <div class="flow-item">CoinGecko API</div>
+                <div class="arrow">➔</div>
+                <div class="flow-item">Python (ETL)</div>
+                <div class="arrow">➔</div>
+                <div class="flow-item">MySQL DB</div>
+                <div class="arrow">➔</div>
+                <div class="flow-item">Power BI</div>
+            </div>
+
+            <ul>
+                <li><b>Python:</b> Responsável pela extração e tratamento dos dados brutos da API.</li>
+                <li><b>MySQL:</b> Armazenamento estruturado com tabelas de <i>Cotações Atuais</i> e <i>Histórico</i>.</li>
+                <li><b>Power BI:</b> Visualização dinâmica com medidas DAX para comparação de ativos.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Implementação Técnica</h2>
+            <p>Abaixo, um trecho do script de extração de dados que desenvolvi em Python, mostrando a conexão com a API e tratamento de erros.</p>
+            
+            <pre><code class="language-python">
+import requests
+import mysql.connector
+
+# Configurações da API e Banco
+MOEDAS_IDS = ['bitcoin', 'ethereum', 'solana', 'binancecoin']
+URL_API = "https://api.coingecko.com/api/v3/simple/price"
+
+def buscar_dados_atuais():
+    """Busca os dados atuais na API da CoinGecko com tratamento de erro."""
+    params = {
+        'ids': ",".join(MOEDAS_IDS),
+        'vs_currencies': 'usd',
+        'include_market_cap': 'true',
+        'include_24hr_vol': 'true'
+    }
+    try:
+        response = requests.get(URL_API, params=params)
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print(f"Erro na API: {e}")
+        return None
+            </code></pre>
+            
+            <p>Para a persistência, utilizei uma modelagem SQL relacional para garantir integridade:</p>
+            <pre><code class="language-sql">
+-- Tabela para histórico de preços (Snippet)
+CREATE TABLE IF NOT EXISTS cotacoes_historico (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome_ativo VARCHAR(50),
+    data DATE,
+    preco_usd DECIMAL(20, 8),
+    UNIQUE(nome_ativo, data) -- Evita duplicidade de registros
+);
+            </code></pre>
+        </div>
+
+    </div>
+
+</body>
+</html>
