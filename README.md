@@ -32,8 +32,6 @@
 
 [cite_start]O fluxo de dados do projeto segue a seguinte lógica[cite: 13]:
 
-
-
 [cite_start]$$\text{CoinGecko API} \rightarrow \text{Script Python} \rightarrow \text{Banco de Dados MySQL} \rightarrow \text{Power BI Desktop}$$ [cite: 14]
 
 ---
@@ -42,9 +40,9 @@
 
 | Tecnologia | Finalidade |
 | :--- | :--- |
-| **Python** | [cite_start]Extração, transformação e carga (ETL) dos dados[cite: 26]. |
-| **MySQL** | [cite_start]SGBD para armazenamento persistente dos dados[cite: 27]. |
-| **Power BI** | [cite_start]Business Intelligence para visualização de dados e dashboards[cite: 28]. |
-| **CoinGecko API** | [cite_start]Fornece dados de mercado de criptomoedas em tempo real[cite: 29]. |
+| **Python** | [cite_start]Linguagem utilizada para a extração, transformação e carga (ETL) dos dados[cite: 26]. |
+| **MySQL** | [cite_start]Sistema de gerenciamento de banco de dados relacional (SGBD) para armazenamento persistente dos dados[cite: 27]. |
+| **Power BI** | [cite_start]Ferramenta de Business Intelligence para visualização de dados, relatórios e dashboards[cite: 28]. |
+| **CoinGecko API** | [cite_start]Interface de programação de aplicações que fornece dados de mercado de criptomoedas em tempo real[cite: 29]. |
 
 ---
